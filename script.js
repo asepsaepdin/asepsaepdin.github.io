@@ -11,7 +11,7 @@ const CONFIG = {
   // Gunakan format ISO dengan zona WIB (+07:00).
   eventStart: "2026-12-20T08:00:00+07:00",
   eventEnd: "2026-12-20T14:00:00+07:00",
-  eventDateLabel: "Ahad, 20 Desember 2026",
+  eventDateLabel: "Senin, 17 Agustus 2026",
   akadTime: "08.00–09.30 WIB",
   receptionTime: "10.00–14.00 WIB",
 
