@@ -9,8 +9,8 @@ const CONFIG = {
   bride: "apt. Reihanna Yasmine Fauzia, S.Farm",
 
   // Gunakan format ISO dengan zona WIB (+07:00).
-  eventStart: "2026-12-20T08:00:00+07:00",
-  eventEnd: "2026-12-20T14:00:00+07:00",
+  eventStart: "2026-08-17T08:00:00+07:00",
+  eventEnd: "2026-08-17T14:00:00+07:00",
   eventDateLabel: "Senin, 17 Agustus 2026",
   akadTime: "08.00–09.30 WIB",
   receptionTime: "10.00–14.00 WIB",
