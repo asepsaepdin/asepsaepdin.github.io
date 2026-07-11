@@ -12,17 +12,17 @@ window.WEDDING_CONFIG = {
     isoEnd: "2026-08-17T14:00:00+07:00",
     akadTime: "08.00 – 09.30 WIB",
     receptionTime: "10.00 – 14.00 WIB",
-    akadVenue: "[Nama tempat akad]",
-    akadAddress: "[Alamat lengkap akad]",
-    receptionVenue: "[Nama gedung / lokasi]",
-    receptionAddress: "[Alamat lengkap walimah]"
+    akadVenue: "Pawon Joglo",
+    akadAddress: "Jl. Siliwangi No.172, Jalaksana, Kec. Jalaksana, Kabupaten Kuningan, Jawa Barat 45554",
+    receptionVenue: "Pawon Joglo",
+    receptionAddress: "Jl. Siliwangi No.172, Jalaksana, Kec. Jalaksana, Kabupaten Kuningan, Jawa Barat 45554"
   },
   maps: {
     // Gunakan alamat yang spesifik, contoh: "Gedung X, Jalan Y, Bandung"
-    query: "Bandung, Jawa Barat"
+    query: "Jl. Siliwangi No.172, Jalaksana, Kec. Jalaksana, Kabupaten Kuningan, Jawa Barat 45554"
   },
   contact: {
     // Format internasional tanpa tanda +, contoh: 6281234567890
-    whatsapp: "6280000000000"
+    whatsapp: "628986986951"
   }
 };
