@@ -1,8 +1,13 @@
-openButton.addEventListener("pointerup", () => {
-    audio.play();
-    bukaCover();
-    jalankanAnimasi();
-});
+
+const openInvitationButton =
+    document.getElementById("openInvitation");
+
+if (openInvitationButton) {
+    openInvitationButton.addEventListener("click", function () {
+        musicStarted = false;
+        playBacksound();
+    });
+}
 
 (() => {
   "use strict";
