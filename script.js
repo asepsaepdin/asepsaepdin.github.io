@@ -148,7 +148,7 @@ if (openInvitationButton) {
   function downloadCalendar() {
     const event = config.event || {};
     const title = "Pernikahan Asep & Reihanna";
-    const description = "Undangan walimatul 'ursy Asep Saepudin, ST. dan apt. Reihanna Yasmine Fauzia, S.Farm.";
+    const description = "Undangan walimatul 'ursy Asep Saepudin, S.T dan apt. Reihanna Yasmine Fauzia, S.Farm.";
     const location = `${event.receptionVenue || ""}, ${event.receptionAddress || ""}`.replace(/^,\s*/, "");
     const ics = [
       "BEGIN:VCALENDAR",

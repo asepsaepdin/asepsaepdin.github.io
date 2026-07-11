@@ -4,12 +4,12 @@
 */
 window.WEDDING_CONFIG = {
   couple: {
-    groom: "Asep Saepudin, ST.",
+    groom: "Asep Saepudin, S.T",
     bride: "apt. Reihanna Yasmine Fauzia, S.Farm"
   },
   event: {
-    isoStart: "2026-08-17T08:00:00+07:00",
-    isoEnd: "2026-08-17T14:00:00+07:00",
+    isoStart: "2026-08-23T08:00:00+07:00",
+    isoEnd: "2026-08-23T14:00:00+07:00",
     akadTime: "08.00 – 09.30 WIB",
     receptionTime: "10.00 – 14.00 WIB",
     akadVenue: "Pawon Joglo",
