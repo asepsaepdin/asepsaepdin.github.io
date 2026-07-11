@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Lanskap bunga sakura berwarna merah muda tanpa bangunan">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7fb"/>
+      <stop offset="0.42" stop-color="#ffd9e8"/>
+      <stop offset="1" stop-color="#f9bdd4"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="40%" r="50%">
+      <stop offset="0" stop-color="#fffdf7" stop-opacity=".96"/>
+      <stop offset="1" stop-color="#fff1d9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mountain1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d6c2d9"/>
+      <stop offset="1" stop-color="#aa96b6"/>
+    </linearGradient>
+    <linearGradient id="mountain2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3c4d6"/>
+      <stop offset="1" stop-color="#c88fa9"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9d8e6"/>
+      <stop offset=".55" stop-color="#efbed4"/>
+      <stop offset="1" stop-color="#d99db8"/>
+    </linearGradient>
+    <filter id="blur18"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="blur7"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#7d3356" flood-opacity=".18"/></filter>
+    <g id="blossom">
+      <ellipse cx="0" cy="-9" rx="7" ry="11" fill="#fff5fa" transform="rotate(0)"/>
+      <ellipse cx="9" cy="-1" rx="7" ry="11" fill="#ffd6e7" transform="rotate(72)"/>
+      <ellipse cx="6" cy="9" rx="7" ry="11" fill="#ffc0da" transform="rotate(144)"/>
+      <ellipse cx="-6" cy="9" rx="7" ry="11" fill="#ffe4ef" transform="rotate(216)"/>
+      <ellipse cx="-9" cy="-1" rx="7" ry="11" fill="#f9aecb" transform="rotate(288)"/>
+      <circle r="3.2" fill="#e978a6"/>
+    </g>
+    <g id="cluster">
+      <use href="#blossom" transform="translate(0 0) scale(1.05)"/>
+      <use href="#blossom" transform="translate(27 10) scale(.82) rotate(12)"/>
+      <use href="#blossom" transform="translate(-25 13) scale(.72) rotate(-15)"/>
+      <use href="#blossom" transform="translate(10 -27) scale(.7) rotate(18)"/>
+      <use href="#blossom" transform="translate(-13 -23) scale(.62) rotate(-22)"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="820" cy="290" r="270" fill="url(#sun)" filter="url(#blur18)"/>
+
+  <g opacity=".28" filter="url(#blur7)">
+    <circle cx="280" cy="180" r="110" fill="#fff"/>
+    <circle cx="1160" cy="200" r="145" fill="#fff"/>
+    <circle cx="1380" cy="350" r="100" fill="#ffd7e8"/>
+  </g>
+
+  <path d="M0 590 L170 455 300 535 465 390 650 560 820 405 1030 570 1210 425 1415 545 1600 450 1600 760 0 760Z" fill="url(#mountain1)" opacity=".72"/>
+  <path d="M0 655 L220 535 390 620 585 500 760 645 950 520 1150 650 1360 535 1600 650 1600 790 0 790Z" fill="url(#mountain2)" opacity=".9"/>
+  <path d="M0 670 Q280 625 520 685 T1020 670 T1600 690 L1600 1000 0 1000Z" fill="url(#water)"/>
+
+  <g opacity=".34" fill="none" stroke="#fff8fc" stroke-width="6">
+    <path d="M80 760 Q420 705 720 760 T1450 745"/>
+    <path d="M0 835 Q370 790 680 835 T1550 820"/>
+    <path d="M180 915 Q520 870 900 920 T1600 900"/>
+  </g>
+
+  <g opacity=".44" fill="#8b6c88">
+    <path d="M0 750 Q95 665 190 735 T360 735 V1000 H0Z"/>
+    <path d="M1250 755 Q1390 650 1600 730 V1000 H1250Z"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <path d="M-20 95 C120 105 120 220 255 225 C335 228 400 195 474 150" fill="none" stroke="#6e4155" stroke-width="28" stroke-linecap="round"/>
+    <path d="M145 172 C185 240 250 285 338 325" fill="none" stroke="#74465a" stroke-width="18" stroke-linecap="round"/>
+    <path d="M266 214 C325 205 385 225 445 268" fill="none" stroke="#74465a" stroke-width="15" stroke-linecap="round"/>
+    <path d="M1590 95 C1460 120 1455 215 1335 238 C1250 255 1170 220 1105 165" fill="none" stroke="#6e4155" stroke-width="28" stroke-linecap="round"/>
+    <path d="M1458 170 C1410 240 1340 286 1250 326" fill="none" stroke="#74465a" stroke-width="18" stroke-linecap="round"/>
+    <path d="M1332 225 C1265 220 1210 240 1150 285" fill="none" stroke="#74465a" stroke-width="15" stroke-linecap="round"/>
+  </g>
+
+  <g opacity=".98">
+    <use href="#cluster" transform="translate(85 118) scale(1.15)"/>
+    <use href="#cluster" transform="translate(168 148) scale(.95) rotate(8)"/>
+    <use href="#cluster" transform="translate(235 202) scale(1.05) rotate(-7)"/>
+    <use href="#cluster" transform="translate(320 178) scale(.88)"/>
+    <use href="#cluster" transform="translate(390 142) scale(.8)"/>
+    <use href="#cluster" transform="translate(350 270) scale(.84)"/>
+    <use href="#cluster" transform="translate(1460 125) scale(1.1)"/>
+    <use href="#cluster" transform="translate(1375 155) scale(.98) rotate(-7)"/>
+    <use href="#cluster" transform="translate(1310 215) scale(1.05)"/>
+    <use href="#cluster" transform="translate(1228 180) scale(.86)"/>
+    <use href="#cluster" transform="translate(1162 145) scale(.78)"/>
+    <use href="#cluster" transform="translate(1240 270) scale(.82)"/>
+  </g>
+
+  <g opacity=".75" fill="#7d4a64">
+    <path d="M150 1000 C180 860 155 760 230 665 C205 780 250 880 260 1000Z"/>
+    <path d="M1430 1000 C1410 850 1440 740 1360 660 C1380 800 1335 900 1328 1000Z"/>
+  </g>
+  <g opacity=".72">
+    <use href="#cluster" transform="translate(190 705) scale(.9)"/>
+    <use href="#cluster" transform="translate(238 760) scale(.72)"/>
+    <use href="#cluster" transform="translate(1405 700) scale(.9)"/>
+    <use href="#cluster" transform="translate(1355 760) scale(.75)"/>
+  </g>
+</svg>

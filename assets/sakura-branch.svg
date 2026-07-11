@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <filter id="soft"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#7f3857" flood-opacity=".16"/></filter>
+    <radialGradient id="petal" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#fff8fc"/>
+      <stop offset=".65" stop-color="#ffd1e2"/>
+      <stop offset="1" stop-color="#f49abd"/>
+    </radialGradient>
+    <g id="flower">
+      <ellipse cx="0" cy="-13" rx="10" ry="16" fill="url(#petal)"/>
+      <ellipse cx="12" cy="-3" rx="10" ry="16" fill="url(#petal)" transform="rotate(72 12 -3)"/>
+      <ellipse cx="8" cy="12" rx="10" ry="16" fill="url(#petal)" transform="rotate(144 8 12)"/>
+      <ellipse cx="-8" cy="12" rx="10" ry="16" fill="url(#petal)" transform="rotate(216 -8 12)"/>
+      <ellipse cx="-12" cy="-3" rx="10" ry="16" fill="url(#petal)" transform="rotate(288 -12 -3)"/>
+      <circle r="4" fill="#d95d91"/>
+      <circle r="1.4" fill="#ffdf87"/>
+    </g>
+  </defs>
+  <g filter="url(#soft)">
+    <path d="M-30 330 C125 320 180 245 280 210 C380 175 445 135 620 30" fill="none" stroke="#6a3c51" stroke-width="24" stroke-linecap="round"/>
+    <path d="M170 270 C205 205 205 135 260 72" fill="none" stroke="#704156" stroke-width="14" stroke-linecap="round"/>
+    <path d="M288 208 C330 236 360 278 405 325" fill="none" stroke="#704156" stroke-width="13" stroke-linecap="round"/>
+    <path d="M385 160 C415 110 460 78 520 64" fill="none" stroke="#704156" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g>
+    <use href="#flower" transform="translate(110 312) scale(.9) rotate(-6)"/>
+    <use href="#flower" transform="translate(170 272) scale(1.05)"/>
+    <use href="#flower" transform="translate(220 220) scale(.8) rotate(15)"/>
+    <use href="#flower" transform="translate(245 154) scale(1.05)"/>
+    <use href="#flower" transform="translate(264 86) scale(.82) rotate(-8)"/>
+    <use href="#flower" transform="translate(298 204) scale(1.1)"/>
+    <use href="#flower" transform="translate(360 180) scale(.82)"/>
+    <use href="#flower" transform="translate(410 140) scale(1.0) rotate(-10)"/>
+    <use href="#flower" transform="translate(462 98) scale(.8)"/>
+    <use href="#flower" transform="translate(520 62) scale(1.0)"/>
+    <use href="#flower" transform="translate(340 255) scale(.8) rotate(10)"/>
+    <use href="#flower" transform="translate(400 320) scale(.95)"/>
+  </g>
+</svg>
