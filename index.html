@@ -44,148 +44,11 @@
         <strong id="guestName">Bapak/Ibu/Saudara/i</strong>
         <span>di tempat</span>
       </div>
-
-<audio
-    id="backsound"
-    preload="auto"
-    loop
-    playsinline
->
-    <source
-        src="assets/audio/backsound.mp3"
-        type="audio/mpeg"
-    >
-</audio>
       
       <button class="primary-button ripple" id="openInvitation" type="button">
         <span>Buka Undangan</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6"/></svg>
       </button>
-
-<button
-    id="musicToggle"
-    class="music-toggle"
-    type="button"
-    aria-label="Turn music on or off"
->
-    ♫
-</button>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("backsound");
-    const openButton = document.getElementById("openInvitation");
-    const musicButton = document.getElementById("musicToggle");
-
-    let musicEnabled = false;
-
-    audio.volume = 0.45;
-
-    function updateMusicButton() {
-        if (audio.paused) {
-            musicButton.textContent = "♪";
-            musicButton.classList.remove("playing");
-            musicButton.setAttribute("aria-label", "Putar musik");
-        } else {
-            musicButton.textContent = "♫";
-            musicButton.classList.add("playing");
-            musicButton.setAttribute("aria-label", "Jeda musik");
-        }
-    }
-
-    async function startMusic() {
-        try {
-            // play() harus dijalankan langsung dari event pengguna.
-            await audio.play();
-
-            musicEnabled = true;
-            updateMusicButton();
-
-            console.log("Backsound berhasil diputar.");
-            return true;
-        } catch (error) {
-            console.warn(
-                "Browser memblokir autoplay:",
-                error.name,
-                error.message
-            );
-
-            musicEnabled = false;
-            updateMusicButton();
-            return false;
-        }
-    }
-
-    function openInvitation() {
-        const cover = document.getElementById("cover");
-
-        if (cover) {
-            cover.classList.add("cover-opened");
-        }
-
-        document.body.classList.remove("locked");
-    }
-
-    /*
-     * pointerup biasanya lebih konsisten untuk mouse dan layar sentuh.
-     * startMusic dipanggil sebelum animasi atau proses asynchronous lain.
-     */
-    openButton.addEventListener("pointerup", () => {
-        startMusic();
-        openInvitation();
-    });
-
-    musicButton.addEventListener("pointerup", async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (audio.paused) {
-            await startMusic();
-        } else {
-            audio.pause();
-            musicEnabled = false;
-            updateMusicButton();
-        }
-    });
-
-    /*
-     * Fallback: sentuhan pertama di halaman akan mencoba memutar audio.
-     */
-    const unlockAudio = async () => {
-        if (!musicEnabled && audio.paused) {
-            await startMusic();
-        }
-
-        document.removeEventListener("pointerdown", unlockAudio);
-        document.removeEventListener("touchend", unlockAudio);
-    };
-
-    document.addEventListener("pointerdown", unlockAudio, {
-        once: true,
-        passive: true
-    });
-
-    document.addEventListener("touchend", unlockAudio, {
-        once: true,
-        passive: true
-    });
-
-    audio.addEventListener("play", updateMusicButton);
-    audio.addEventListener("pause", updateMusicButton);
-
-    audio.addEventListener("error", () => {
-        const mediaError = audio.error;
-
-        console.error("Gagal memuat backsound:", {
-            code: mediaError?.code,
-            currentSource: audio.currentSrc
-        });
-    });
-
-    updateMusicButton();
-});
-</script>
-
     </div>
 
     <div class="scroll-hint" aria-hidden="true"><span></span></div>
@@ -476,5 +339,191 @@ document.addEventListener("DOMContentLoaded", () => {
   <noscript>
     <div class="noscript">Aktifkan JavaScript agar animasi, hitung mundur, kalender, dan RSVP dapat digunakan.</div>
   </noscript>
+
+
+<!-- Backsound Wedding -->
+<audio
+    id="weddingMusic"
+    loop
+    preload="auto"
+    playsinline
+    webkit-playsinline
+>
+    <source src="assets/audio/backsound-wedding.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung pemutar audio.
+</audio>
+
+<!-- Tombol kontrol musik -->
+<button
+    id="musicButton"
+    class="music-button"
+    type="button"
+    aria-label="Putar atau hentikan musik"
+>
+    <span id="musicIcon" class="music-icon">♫</span>
+    <span class="music-wave">
+        <i></i>
+        <i></i>
+        <i></i>
+    </span>
+</button>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const music = document.getElementById("weddingMusic");
+    const musicButton = document.getElementById("musicButton");
+
+    /*
+     * Sesuaikan selector ini dengan tombol pembuka undangan Anda.
+     * Contoh tombol:
+     * <button id="openInvitation">Buka Undangan</button>
+     */
+    const openInvitationButton =
+        document.getElementById("openInvitation") ||
+        document.querySelector(".open-invitation") ||
+        document.querySelector("[data-open-invitation]");
+
+    let musicStarted = false;
+
+    // Volume 0.45 = 45%
+    music.volume = 0.45;
+
+    function updateMusicButton(isPlaying) {
+        musicButton.classList.toggle("is-playing", isPlaying);
+        musicButton.setAttribute(
+            "aria-label",
+            isPlaying ? "Hentikan musik" : "Putar musik"
+        );
+    }
+
+    async function playMusic() {
+        try {
+            await music.play();
+            musicStarted = true;
+            updateMusicButton(true);
+        } catch (error) {
+            /*
+             * Autoplay bersuara dapat diblokir browser.
+             * Musik akan dicoba kembali setelah interaksi pengguna.
+             */
+            updateMusicButton(false);
+            console.info(
+                "Autoplay diblokir browser. Musik menunggu interaksi pengguna."
+            );
+        }
+    }
+
+    function pauseMusic() {
+        music.pause();
+        updateMusicButton(false);
+    }
+
+    function toggleMusic() {
+        if (music.paused) {
+            playMusic();
+        } else {
+            pauseMusic();
+        }
+    }
+
+    // Tombol kontrol musik
+    musicButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        toggleMusic();
+    });
+
+    /*
+     * Metode paling stabil:
+     * musik berjalan saat tombol "Buka Undangan" ditekan.
+     */
+    if (openInvitationButton) {
+        openInvitationButton.addEventListener("click", function () {
+            playMusic();
+        });
+    }
+
+    /*
+     * Cadangan untuk desktop dan ponsel.
+     * Musik dimulai ketika pengguna pertama kali berinteraksi.
+     */
+    const startMusicOnFirstInteraction = function () {
+        if (!musicStarted && music.paused) {
+            playMusic();
+        }
+
+        document.removeEventListener(
+            "pointerdown",
+            startMusicOnFirstInteraction
+        );
+
+        document.removeEventListener(
+            "touchstart",
+            startMusicOnFirstInteraction
+        );
+
+        document.removeEventListener(
+            "keydown",
+            startMusicOnFirstInteraction
+        );
+    };
+
+    document.addEventListener(
+        "pointerdown",
+        startMusicOnFirstInteraction,
+        { once: true }
+    );
+
+    document.addEventListener(
+        "touchstart",
+        startMusicOnFirstInteraction,
+        { once: true, passive: true }
+    );
+
+    document.addEventListener(
+        "keydown",
+        startMusicOnFirstInteraction,
+        { once: true }
+    );
+
+    // Coba autoplay ketika halaman selesai dimuat
+    window.addEventListener("load", function () {
+        playMusic();
+    });
+
+    /*
+     * Menghentikan musik saat tab tidak aktif,
+     * lalu melanjutkannya ketika tab dibuka kembali.
+     */
+    let wasPlayingBeforeHidden = false;
+
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            wasPlayingBeforeHidden = !music.paused;
+
+            if (wasPlayingBeforeHidden) {
+                music.pause();
+            }
+        } else if (wasPlayingBeforeHidden) {
+            playMusic();
+        }
+    });
+
+    music.addEventListener("play", function () {
+        updateMusicButton(true);
+    });
+
+    music.addEventListener("pause", function () {
+        updateMusicButton(false);
+    });
+
+    music.addEventListener("error", function () {
+        console.error(
+            "File backsound tidak dapat dimuat. Periksa lokasi file MP3."
+        );
+        updateMusicButton(false);
+    });
+});
+</script>
+  
 </body>
 </html>
