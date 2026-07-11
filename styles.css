@@ -34,49 +34,107 @@ html {
   scroll-padding-top: 72px;
 }
 
-.music-toggle {
+/* =====================================
+   RESPONSIVE BACKSOUND BUTTON
+===================================== */
+
+.music-button {
     position: fixed;
-    right: 20px;
-    bottom: 90px;
+    right: 24px;
+    bottom: 24px;
     z-index: 9999;
 
-    width: 48px;
-    height: 48px;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
+    width: 58px;
+    height: 58px;
+    padding: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 3px;
 
-    background: linear-gradient(
-        135deg,
-        #ff8fb1,
-        #ffb7ca
-    );
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
 
     color: #ffffff;
-    font-size: 22px;
-    cursor: pointer;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 130, 171, 0.95),
+            rgba(231, 72, 133, 0.95)
+        );
 
-    box-shadow: 0 8px 25px rgba(206, 74, 120, 0.35);
-    backdrop-filter: blur(8px);
+    box-shadow:
+        0 10px 30px rgba(211, 66, 120, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+    cursor: pointer;
+    overflow: hidden;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
     transition:
         transform 0.3s ease,
-        box-shadow 0.3s ease;
+        box-shadow 0.3s ease,
+        opacity 0.3s ease;
 }
 
-.music-toggle:hover {
-    transform: scale(1.08);
-    box-shadow: 0 10px 30px rgba(206, 74, 120, 0.45);
+.music-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 14px 35px rgba(211, 66, 120, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-.music-toggle.playing {
-    animation: musicSpin 4s linear infinite;
+.music-button:active {
+    transform: scale(0.93);
 }
 
-@keyframes musicSpin {
+.music-icon {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    line-height: 1;
+    transform-origin: center;
+}
+
+.music-button.is-playing .music-icon {
+    animation: musicRotate 5s linear infinite;
+}
+
+.music-wave {
+    height: 19px;
+    display: none;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.music-button.is-playing .music-wave {
+    display: flex;
+}
+
+.music-button.is-playing .music-icon {
+    font-size: 18px;
+}
+
+.music-wave i {
+    width: 3px;
+    height: 8px;
+    display: block;
+    border-radius: 10px;
+    background: #ffffff;
+    animation: musicWave 0.8s ease-in-out infinite alternate;
+}
+
+.music-wave i:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.music-wave i:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes musicRotate {
     from {
         transform: rotate(0deg);
     }
@@ -86,13 +144,47 @@ html {
     }
 }
 
-@media (max-width: 576px) {
-    .music-toggle {
+@keyframes musicWave {
+    from {
+        height: 5px;
+    }
+
+    to {
+        height: 18px;
+    }
+}
+
+/* Tampilan ponsel */
+@media screen and (max-width: 768px) {
+    .music-button {
         right: 16px;
-        bottom: 80px;
-        width: 44px;
-        height: 44px;
-        font-size: 20px;
+        bottom: 18px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .music-icon {
+        font-size: 22px;
+    }
+}
+
+/* Ponsel dengan layar sangat kecil */
+@media screen and (max-width: 380px) {
+    .music-button {
+        right: 12px;
+        bottom: 14px;
+        width: 46px;
+        height: 46px;
+    }
+}
+
+/* Menghormati pengaturan pengurangan animasi */
+@media (prefers-reduced-motion: reduce) {
+    .music-button,
+    .music-icon,
+    .music-wave i {
+        animation: none !important;
+        transition: none !important;
     }
 }
 
