@@ -26,14 +26,3 @@ window.WEDDING_CONFIG = {
     whatsapp: "628986986951"
   }
 };
-
-
-const openInvitationButton =
-    document.getElementById("openInvitation");
-
-if (openInvitationButton) {
-    openInvitationButton.addEventListener("click", function () {
-        musicStarted = false;
-        playBacksound();
-    });
-}
