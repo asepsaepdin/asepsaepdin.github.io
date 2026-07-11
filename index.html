@@ -18,98 +18,6 @@
   <script defer src="script.js"></script>
 </head>
 
-<audio id="backsound" loop preload="auto">
-    <source src="assets/audio/backsound.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-
-<button
-    id="musicToggle"
-    class="music-toggle"
-    type="button"
-    aria-label="Turn music on or off"
->
-    ♫
-</button>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const audio = document.getElementById("backsound");
-    const musicToggle = document.getElementById("musicToggle");
-
-    let musicStarted = false;
-
-    audio.volume = 0.45;
-
-    async function playBacksound() {
-        if (!audio || musicStarted) return;
-
-        try {
-            await audio.play();
-            musicStarted = true;
-            musicToggle.classList.add("playing");
-            musicToggle.textContent = "♫";
-            musicToggle.setAttribute("aria-label", "Turn music off");
-        } catch (error) {
-            console.log("Autoplay is waiting for user interaction.");
-        }
-    }
-
-    function pauseBacksound() {
-        audio.pause();
-        musicToggle.classList.remove("playing");
-        musicToggle.textContent = "♪";
-        musicToggle.setAttribute("aria-label", "Turn music on");
-    }
-
-    // Attempt autoplay when the page loads
-    playBacksound();
-
-    // Play automatically after the first visitor interaction
-    const startMusicEvents = ["click", "touchstart", "keydown"];
-
-    function startMusicAfterInteraction() {
-        playBacksound();
-
-        startMusicEvents.forEach(function (eventName) {
-            document.removeEventListener(
-                eventName,
-                startMusicAfterInteraction
-            );
-        });
-    }
-
-    startMusicEvents.forEach(function (eventName) {
-        document.addEventListener(
-            eventName,
-            startMusicAfterInteraction,
-            { once: true }
-        );
-    });
-
-    // Music control button
-    musicToggle.addEventListener("click", async function (event) {
-        event.stopPropagation();
-
-        if (audio.paused) {
-            musicStarted = false;
-            await playBacksound();
-        } else {
-            pauseBacksound();
-        }
-    });
-
-    // Stop music when the browser tab is hidden
-    document.addEventListener("visibilitychange", function () {
-        if (document.hidden && !audio.paused) {
-            audio.pause();
-        } else if (!document.hidden && musicStarted) {
-            audio.play().catch(() => {});
-        }
-    });
-});
-</script>
-
 <body class="locked">
   <div class="page-loader" aria-hidden="true">
     <div class="loader-flower">✿</div>
@@ -137,10 +45,142 @@ document.addEventListener("DOMContentLoaded", function () {
         <span>di tempat</span>
       </div>
 
+<audio
+    id="backsound"
+    preload="auto"
+    loop
+    playsinline
+>
+    <source
+        src="assets/audio/backsound.mp3"
+        type="audio/mpeg"
+    >
+</audio>
+      
       <button class="primary-button ripple" id="openInvitation" type="button">
         <span>Buka Undangan</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6"/></svg>
       </button>
+
+<button id="musicToggle" type="button" aria-label="Kontrol musik">
+    ♪
+</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("backsound");
+    const openButton = document.getElementById("openInvitation");
+    const musicButton = document.getElementById("musicToggle");
+
+    let musicEnabled = false;
+
+    audio.volume = 0.45;
+
+    function updateMusicButton() {
+        if (audio.paused) {
+            musicButton.textContent = "♪";
+            musicButton.classList.remove("playing");
+            musicButton.setAttribute("aria-label", "Putar musik");
+        } else {
+            musicButton.textContent = "♫";
+            musicButton.classList.add("playing");
+            musicButton.setAttribute("aria-label", "Jeda musik");
+        }
+    }
+
+    async function startMusic() {
+        try {
+            // play() harus dijalankan langsung dari event pengguna.
+            await audio.play();
+
+            musicEnabled = true;
+            updateMusicButton();
+
+            console.log("Backsound berhasil diputar.");
+            return true;
+        } catch (error) {
+            console.warn(
+                "Browser memblokir autoplay:",
+                error.name,
+                error.message
+            );
+
+            musicEnabled = false;
+            updateMusicButton();
+            return false;
+        }
+    }
+
+    function openInvitation() {
+        const cover = document.getElementById("cover");
+
+        if (cover) {
+            cover.classList.add("cover-opened");
+        }
+
+        document.body.classList.remove("locked");
+    }
+
+    /*
+     * pointerup biasanya lebih konsisten untuk mouse dan layar sentuh.
+     * startMusic dipanggil sebelum animasi atau proses asynchronous lain.
+     */
+    openButton.addEventListener("pointerup", () => {
+        startMusic();
+        openInvitation();
+    });
+
+    musicButton.addEventListener("pointerup", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (audio.paused) {
+            await startMusic();
+        } else {
+            audio.pause();
+            musicEnabled = false;
+            updateMusicButton();
+        }
+    });
+
+    /*
+     * Fallback: sentuhan pertama di halaman akan mencoba memutar audio.
+     */
+    const unlockAudio = async () => {
+        if (!musicEnabled && audio.paused) {
+            await startMusic();
+        }
+
+        document.removeEventListener("pointerdown", unlockAudio);
+        document.removeEventListener("touchend", unlockAudio);
+    };
+
+    document.addEventListener("pointerdown", unlockAudio, {
+        once: true,
+        passive: true
+    });
+
+    document.addEventListener("touchend", unlockAudio, {
+        once: true,
+        passive: true
+    });
+
+    audio.addEventListener("play", updateMusicButton);
+    audio.addEventListener("pause", updateMusicButton);
+
+    audio.addEventListener("error", () => {
+        const mediaError = audio.error;
+
+        console.error("Gagal memuat backsound:", {
+            code: mediaError?.code,
+            currentSource: audio.currentSrc
+        });
+    });
+
+    updateMusicButton();
+});
+</script>
+
     </div>
 
     <div class="scroll-hint" aria-hidden="true"><span></span></div>
