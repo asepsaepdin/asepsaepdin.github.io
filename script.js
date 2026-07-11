@@ -1,13 +1,8 @@
-
-const openInvitationButton =
-    document.getElementById("openInvitation");
-
-if (openInvitationButton) {
-    openInvitationButton.addEventListener("click", function () {
-        musicStarted = false;
-        playBacksound();
-    });
-}
+openButton.addEventListener("pointerup", () => {
+    audio.play();
+    bukaCover();
+    jalankanAnimasi();
+});
 
 (() => {
   "use strict";
