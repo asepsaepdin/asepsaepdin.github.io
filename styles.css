@@ -34,6 +34,68 @@ html {
   scroll-padding-top: 72px;
 }
 
+.music-toggle {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    z-index: 9999;
+
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #ff8fb1,
+        #ffb7ca
+    );
+
+    color: #ffffff;
+    font-size: 22px;
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(206, 74, 120, 0.35);
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.music-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(206, 74, 120, 0.45);
+}
+
+.music-toggle.playing {
+    animation: musicSpin 4s linear infinite;
+}
+
+@keyframes musicSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 576px) {
+    .music-toggle {
+        right: 16px;
+        bottom: 80px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+}
+
 body {
   margin: 0;
   min-width: 320px;

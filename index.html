@@ -17,6 +17,99 @@
   <script defer src="config.js"></script>
   <script defer src="script.js"></script>
 </head>
+
+<audio id="backsound" loop preload="auto">
+    <source src="assets/audio/backsound.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<button
+    id="musicToggle"
+    class="music-toggle"
+    type="button"
+    aria-label="Turn music on or off"
+>
+    ♫
+</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("backsound");
+    const musicToggle = document.getElementById("musicToggle");
+
+    let musicStarted = false;
+
+    audio.volume = 0.45;
+
+    async function playBacksound() {
+        if (!audio || musicStarted) return;
+
+        try {
+            await audio.play();
+            musicStarted = true;
+            musicToggle.classList.add("playing");
+            musicToggle.textContent = "♫";
+            musicToggle.setAttribute("aria-label", "Turn music off");
+        } catch (error) {
+            console.log("Autoplay is waiting for user interaction.");
+        }
+    }
+
+    function pauseBacksound() {
+        audio.pause();
+        musicToggle.classList.remove("playing");
+        musicToggle.textContent = "♪";
+        musicToggle.setAttribute("aria-label", "Turn music on");
+    }
+
+    // Attempt autoplay when the page loads
+    playBacksound();
+
+    // Play automatically after the first visitor interaction
+    const startMusicEvents = ["click", "touchstart", "keydown"];
+
+    function startMusicAfterInteraction() {
+        playBacksound();
+
+        startMusicEvents.forEach(function (eventName) {
+            document.removeEventListener(
+                eventName,
+                startMusicAfterInteraction
+            );
+        });
+    }
+
+    startMusicEvents.forEach(function (eventName) {
+        document.addEventListener(
+            eventName,
+            startMusicAfterInteraction,
+            { once: true }
+        );
+    });
+
+    // Music control button
+    musicToggle.addEventListener("click", async function (event) {
+        event.stopPropagation();
+
+        if (audio.paused) {
+            musicStarted = false;
+            await playBacksound();
+        } else {
+            pauseBacksound();
+        }
+    });
+
+    // Stop music when the browser tab is hidden
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden && !audio.paused) {
+            audio.pause();
+        } else if (!document.hidden && musicStarted) {
+            audio.play().catch(() => {});
+        }
+    });
+});
+</script>
+
 <body class="locked">
   <div class="page-loader" aria-hidden="true">
     <div class="loader-flower">✿</div>
