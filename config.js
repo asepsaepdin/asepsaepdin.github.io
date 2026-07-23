@@ -23,6 +23,6 @@ window.WEDDING_CONFIG = {
   },
   contact: {
     // Format internasional tanpa tanda +, contoh: 6281234567890
-    whatsapp: "628986986951"
+    whatsapp: "6281224514128"
   }
 };
