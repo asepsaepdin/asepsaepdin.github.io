@@ -11,7 +11,7 @@ window.WEDDING_CONFIG = {
     isoStart: "2026-08-23T08:00:00+07:00",
     isoEnd: "2026-08-23T14:00:00+07:00",
     akadTime: "10.00 – 11.00 WIB",
-    receptionTime: "11.00 – 14.00 WIB",
+    receptionTime: "11.00 – 15.00 WIB",
     akadVenue: "Hotel Grage Resort Sangkan",
     akadAddress: "Jl. Panawuan-Sangkanurip, Panawuan, Kec. Cigandamekar, Kabupaten Kuningan, Jawa Barat 45556",
     receptionVenue: "Hotel Grage Resort Sangkan",
